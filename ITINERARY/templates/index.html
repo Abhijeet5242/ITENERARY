@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferry Itinerary Form</title>
+    <!-- Import Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    
+    <div class="form-container">
+        <h1>ITINERARY</h1>
+        <form id="ferryForm" method="POST" action="/add-ferry-route">
+            <div class="input-field">
+                <select id="ferryName" name="ferryName" required>
+                    <option value="" disabled selected>Choose your ferry</option>
+                    <option value="Ferry ABC">Ferry ABC</option>
+                    <option value="Ferry XYZ">Ferry XYZ</option>
+                    <option value="Ferry PQR">Ferry PQR</option>
+                    <option value="Ferry AAA">Ferry AAA</option>
+                    <option value="Ferry SSS">Ferry SSS</option>
+                </select>
+                <label for="ferryName">Ferry Name</label>
+            </div>
+            <div class="input-field">
+                <input type="number" id="capacity" name="capacity" class="validate" required>
+                <label for="capacity">Capacity</label>
+            </div>
+            <div class="input-field">
+                <select id="startPoint" name="startPoint" required>
+                    <option value="" disabled selected>Choose your start point</option>
+                    <option value="pointA">Point A</option>
+                    <option value="pointB">Point B</option>
+                </select>
+                <label for="startPoint">Start Point</label>
+            </div>
+            <div class="input-field">
+                <select id="endPoint" name="endPoint" required>
+                    <option value="" disabled selected>Choose your end point</option>
+                    <option value="pointA">Point A</option>
+                    <option value="pointB">Point B</option>
+                </select>
+                <label for="endPoint">End Point</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="distance" name="distance" class="validate" required>
+                <label for="distance">Distance (in km)</label>
+            </div>
+            <div class="input-field">
+                <select id="dinner_Lunch" name="dinner/Lunch" required>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <label for="dinner">Dinner/Lunch</label>
+            </div>
+            
+            <!-- Additional options for Veg/Non-Veg -->
+            <div class="input-field" id="mealOption" style="display: none;">
+                <select id="mealType" name="mealType">
+                    <option value="" disabled selected>Choose your meal type</option>
+                    <option value="veg">Veg</option>
+                    <option value="non-veg">Non-Veg</option>
+                </select>
+                <label for="mealType">Meal Type</label>
+            </div>
+
+            <!-- Activities on Ferry Section -->
+            <div class="input-field">
+                <select id="activities" name="activities" multiple>
+                    <option value="" disabled>Choose activities on ferry</option>
+                    <option value="sightseeing">Sightseeing</option>
+                    <option value="dancing">Dancing</option>
+                    <option value="liveMusic">Live Music</option>
+                    <option value="games">Games</option>
+                    <option value="dining">Dining</option>
+                </select>
+                <label for="activities">Activities on Ferry</label>
+            </div>
+            <div class="input-field">
+                <select id="returnPlan" name="returnPlan" required>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <label for="returnPlan">Return Plan</label>
+            </div>
+
+            <div class="input-field">
+                <textarea id="description" name="description" class="materialize-textarea" rows="4" required></textarea>
+                <label for="description">Description</label>
+            </div>
+            <button type="submit" class="btn waves-effect waves-light">Submit</button>
+        </form>
+    </div>
+
+    <!-- Import Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            M.FormSelect.init(elems);
+
+            // Show/hide meal option based on Dinner/Lunch selection
+            var dinnerSelect = document.getElementById('dinner_Lunch');
+            var mealOptionDiv = document.getElementById('mealOption');
+
+            dinnerSelect.addEventListener('change', function() {
+                if (dinnerSelect.value === 'yes') {
+                    mealOptionDiv.style.display = 'block';
+                } else {
+                    mealOptionDiv.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
